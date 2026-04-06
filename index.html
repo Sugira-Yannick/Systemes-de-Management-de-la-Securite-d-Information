@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module Académique : SMSI — Fondations, Architecture et Maîtrise Opérationnelle</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:false, theme:'neutral', securityLevel:'loose', flowchart:{htmlLabels:true}});</script>
+  <style>
+    :root{
+      --bg:#071018;--bg2:#0c1722;--panel:#12212b;--panel2:#162934;--line:rgba(121,221,210,.18);--line-strong:rgba(121,221,210,.42);--text:#eef7fa;--muted:#a7bec6;--accent:#72dfd2;--accent2:#f4cb7e;--shadow:0 28px 70px rgba(0,0,0,.34);--radius-xl:30px;--radius-lg:22px;--radius-md:16px;--color-primary:#eef7fa;--color-secondary:#d8e8ee;--color-accent:#72dfd2;--color-law:#ff8c8c;--color-illusion:#f4cb7e;--color-background:#071018;--color-surface:#12212b;--color-border:rgba(121,221,210,.24);--font-heading:"Aptos","Segoe UI","Trebuchet MS",sans-serif;--font-body:"Aptos","Segoe UI","Trebuchet MS",sans-serif;
+    }
+    *{box-sizing:border-box} html,body{margin:0;padding:0;color:var(--text);font-family:var(--font-body);background:radial-gradient(circle at top left, rgba(114,223,210,.14), transparent 26%),radial-gradient(circle at top right, rgba(244,203,126,.10), transparent 24%),linear-gradient(155deg,#051019 0%,#091521 46%,#061019 100%);scroll-behavior:smooth;}
+    a{color:var(--accent);text-decoration:none}
+    .page{width:min(1560px,calc(100vw - 28px));margin:14px auto 24px;display:grid;gap:18px}
+    .hero,.panel{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius-xl);background:linear-gradient(180deg,rgba(18,33,43,.95),rgba(12,24,33,.96));box-shadow:var(--shadow)}
+    .hero{padding:34px 34px 28px;min-height:260px}
+    .hero::before,.panel::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg, rgba(114,223,210,.10), transparent 38%),linear-gradient(320deg, rgba(244,203,126,.08), transparent 36%)}
+    .eyebrow{margin:0 0 14px;color:var(--accent);font-size:13px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+    h1{margin:0;max-width:1080px;font-size:clamp(36px,5vw,68px);line-height:1;letter-spacing:-.04em}
+    .hero-copy{margin:18px 0 0;max-width:1080px;font-size:21px;line-height:1.7;color:var(--muted)}
+    .hero-grid{margin-top:22px;display:grid;gap:14px;grid-template-columns:repeat(4,minmax(0,1fr))}
+    .hero-card{border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;background:rgba(255,255,255,.03);backdrop-filter:blur(10px)}
+    .hero-card strong{display:block;font-size:18px;line-height:1.2;margin-bottom:6px}.hero-card span{color:var(--muted);font-size:14px}
+    .layout{display:grid;gap:18px;grid-template-columns:320px minmax(0,1fr);align-items:start}
+    .sidebar{position:sticky;top:14px;display:grid;gap:18px}.panel{padding:22px}.main{display:grid;gap:18px}.side-title{margin:0 0 14px;font-size:20px;letter-spacing:-.03em}.note{margin:0;color:var(--muted);font-size:14px;line-height:1.8}
+    .nav a{display:block;margin-bottom:12px;padding:15px 16px;border-radius:18px;border:1px solid var(--line);color:var(--text);background:rgba(255,255,255,.02);transition:.22s ease}
+    .nav a:hover,.nav a.active,.nav a.active-section{transform:translateX(4px);border-color:var(--line-strong);background:rgba(114,223,210,.08)}
+    .nav ul{list-style:none;padding:0;margin:0}.nav ul ul{margin:0 0 12px 14px !important;padding-left:10px;border-left:1px solid var(--line)}.nav ul ul a{padding:10px 12px;border-radius:14px;font-size:14px}
+    .module-section{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius-xl);background:linear-gradient(180deg,rgba(18,33,43,.95),rgba(12,24,33,.96));box-shadow:var(--shadow);padding:28px;margin:0;scroll-margin-top:20px}
+    .module-section::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg, rgba(114,223,210,.08), transparent 38%),linear-gradient(320deg, rgba(244,203,126,.06), transparent 36%)}
+    .module-section > *{position:relative;z-index:1}
+    .section-header{margin-bottom:1.6rem;padding-bottom:1rem;border-bottom:1px solid var(--line)} .section-header h2{margin:0;font-family:var(--font-heading);font-size:34px;letter-spacing:-.04em;color:var(--text)}
+    .section-tag{display:inline-block;background:linear-gradient(135deg,var(--accent),#8ff4e8);color:#07212a;font-size:.78rem;font-weight:800;padding:.35rem .85rem;border-radius:999px;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.08em}
+    h3,h4{font-family:var(--font-heading);color:var(--text);letter-spacing:-.03em} h3{font-size:1.55rem;margin-top:2rem;margin-bottom:1rem} h4{font-size:1.1rem;margin-top:1.4rem;margin-bottom:.8rem}
+    p,ul,ol{margin-bottom:1.2rem} ul,ol{padding-left:1.4rem} li{margin-bottom:.5rem} p,li,td,th{color:var(--text);line-height:1.8}
+    .analogy-box,.law-box,.illusion-box,.equation-box{border-left:4px solid var(--accent);padding:1.5rem;margin:2rem 0;border-radius:0 10px 10px 0;background:rgba(114,223,210,.06)}
+    .law-box{border-left-color:#ff8c8c;background:rgba(197,48,48,.10)} .illusion-box{border-left-color:var(--accent2);background:rgba(244,203,126,.10)} .equation-box{text-align:center;font-size:1.1rem;border:1px dashed var(--line);border-left-width:1px;border-radius:18px}
+    .concept-key{color:var(--accent);font-weight:700}
+    .mermaid-diagram{margin:2rem 0;padding:1rem;background:#ffffff;border:1px solid var(--line);border-radius:18px;overflow-x:auto;text-align:center}
+    .mermaid-toolbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px}.mermaid-btn{border:1px solid var(--line);background:rgba(18,33,43,.9);color:var(--text);border-radius:10px;padding:6px 10px;font:inherit;cursor:pointer}.mermaid-btn:hover{border-color:var(--line-strong);background:rgba(114,223,210,.12)}.mermaid-stage{transform-origin:top center;transition:transform .18s ease}
+    .cognitive-objectives{background:linear-gradient(135deg,#1a365d 0%,#2c5282 100%);padding:2rem;border-radius:18px;margin:2rem 0;border:1px solid rgba(255,255,255,.16)}
+    .cognitive-objectives,.cognitive-objectives p,.cognitive-objectives li,.cognitive-objectives h3{color:#fff}
+    iframe,canvas,img,svg{max-width:100%}
+    pre{overflow:auto;padding:18px;border-radius:18px;border:1px solid var(--line);background:rgba(0,0,0,.24);color:var(--text);white-space:pre-wrap;word-break:break-word}
+    code{color:#d9fff8;word-break:break-word}
+    table{width:100%;display:block;overflow:auto;border-collapse:collapse}
+    .page-footer{text-align:center;padding:24px;font-size:18px;line-height:1.8;color:var(--muted)} .page-footer p{margin:.4rem 0;color:var(--muted)}
+    .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer}.hamburger span{width:25px;height:3px;border-radius:2px;background:var(--text)}
+    @media (max-width:1200px){.layout{grid-template-columns:1fr}.sidebar{position:relative;top:auto}.hero-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:860px){.hero{padding:24px 20px}.panel,.module-section{padding:18px}.page{width:min(100vw - 14px,1560px)}.hero-grid{grid-template-columns:1fr}h1{font-size:42px}.section-header h2{font-size:28px}.hamburger{display:flex}.sidebar[data-collapsed='true'] .nav{display:none}}
+  </style>
+</head>
+<body>
+<div class="page">
+  <section class="hero">
+    <p class="eyebrow">Module Académique</p>
+    <h1>📘 Module Académique : Systèmes de Management de la Sécurité de l'Information (SMSI) — Fondations, Architecture et Maîtrise Opérationnelle</h1>
+    <p class="hero-copy">Reconstruction académique ultra-approfondie orientée maîtrise — Formation d'un expert en gouvernance de la sécurité de l'information (Niveau 500%+)</p>
+    <div class="hero-grid">
+<div class="hero-card"><strong>Analogie</strong><span>Modèle systémique et vision d’ensemble</span></div>
+<div class="hero-card"><strong>Architecture</strong><span>Fondamentaux et mécanismes détaillés</span></div>
+<div class="hero-card"><strong>Protocoles</strong><span>Couches, services et erreurs à éviter</span></div>
+<div class="hero-card"><strong>Objectifs</strong><span>Synthèse, extension et ancrage final</span></div>
+    </div>
+  </section>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar-shell" data-collapsed="false">
+      <section class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+          <h2 class="side-title" style="margin:0;">Navigation du Module</h2>
+          <div class="hamburger" id="hamburger-btn"><span></span><span></span><span></span></div>
+        </div>
+        <nav class="nav">
+          <ul class="nav-menu" id="main-menu">
+
+                <li><a href="#analogie" class="active">Analogie Maître</a></li>
+                <li><a href="#modele-mental">Modèle Mental</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#mecanismes">Mécanismes</a></li>
+                <li><a href="#protocoles">Protocoles & Normes</a></li>
+                <li><a href="#illusions">Illusions Conceptuelles</a></li>
+                <li><a href="#raisonnement">Raisonnement</a></li>
+                <li><a href="#synthese">Synthèse</a></li>
+                <li><a href="#extension">Extension</a></li>
+                <li><a href="#objectifs">Objectifs</a></li>
+            
+          </ul>
+          <div style="height:12px;"></div>
+          <ul class="sidebar-nav">
+
+                <li><a href="#analogie" class="active-section">🧠 Analogie Systémique Maître : La Citadelle Numérique</a></li>
+                <li><a href="#modele-mental">🧩 Modèle Mental Global</a></li>
+                <li><a href="#architecture">1️⃣ Architecture Conceptuelle Fondamentale</a></li>
+                <li><a href="#mecanismes">2️⃣ Mécanismes Internes Détaillés</a>
+                    <ul style="margin-left: 1rem; margin-top: 0.5rem; font-size: 0.9rem;">
+                        <li><a href="#mecanisme-appreciation-risques">Appréciation des Risques</a></li>
+                        <li><a href="#mecanisme-traitement-risques">Traitement des Risques</a></li>
+                    </ul>
+                </li>
+                <li><a href="#protocoles">3️⃣ Protocoles, Normes & Outils</a></li>
+                <li><a href="#illusions">4️⃣ Illusions Conceptuelles & Pièges Opérationnels</a></li>
+                <li><a href="#raisonnement">5️⃣ Raisonnement de l'Expert Senior</a></li>
+                <li><a href="#synthese">6️⃣ Synthèse Mémorisable Long Terme</a></li>
+                <li><a href="#extension">7️⃣ Extension au-delà du Corpus (500%+)</a></li>
+                <li><a href="#objectifs">🎯 Objectifs Cognitifs Finaux</a></li>
+            
+          </ul>
+        </nav>
+      </section>
+      <section class="panel">
+        <h2 class="side-title">Principe du module</h2>
+        <p class="note">Reconstruction visuelle basée sur le modèle du projet, avec conservation du contenu complet et des schémas Mermaid du module source.</p>
+      </section>
+    </aside>
+    <main class="main" id="content">
+
+            <!-- Section Analogie -->
+            <section id="analogie" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Analogie Centrale</span>
+                    <h2>🧠 Analogie Systémique Maître : La Citadelle Numérique</h2>
+                </div>
+                <p>Pour appréhender un SMSI, imaginez une <strong>citadelle médiévale moderne</strong>, qui n’est pas un simple ensemble de murs, mais un <strong>écosystème vivant et gouverné</strong>. Cette citadelle (l’organisation) a une raison d’être : abriter une activité (les processus métiers) et protéger ses trésors (les actifs informationnels).</p>
+                <div class="analogy-box">
+                    <p><strong>La Citadelle elle-même (l’Organisation)</strong> : Elle possède une structure (gouvernance), des ressources (finances, personnel), des règles (politiques) et des habitants (employés). Sa mission est d’assurer sa pérennité face aux assauts extérieurs.</p>
+                    <p><strong>Le Donjon (le SMSI)</strong> : C’est le système de management qui orchestre toute la sécurité. Il n’est pas un mur, mais l’ensemble des <em>processus</em>, <em>procédures</em>, <em>responsabilités</em> et <em>décisions</em> qui permettent de construire, d’entretenir et d’améliorer les défenses. Il est le cœur stratégique.</p>
+                    <p><strong>Les Trésors (Actifs Informationnels)</strong> : Ce sont les données et les systèmes que la citadelle doit protéger. Leur valeur définit l’effort de protection.</p>
+                    <p><strong>Les Assaillants (Menaces)</strong> : Ils sont externes (cybercriminels, concurrents) ou internes (employé négligent ou malveillant). Ils exploitent les failles.</p>
+                    <p><strong>Les Fossés, Remparts et Guetteurs (Contrôles de Sécurité)</strong> : Fossés (mesures dissuasives), remparts (mesures préventives), guetteurs (mesures détectives), troupes d’intervention (mesures correctives). Ces contrôles sont de quatre natures : techniques, managériales, administratives et légales.</p>
+                    <p><strong>Le Cycle de Vie de la Citadelle (Cycle PDCA)</strong> : La citadelle n’est jamais figée. Elle est constamment en PLAN (renforcer les murs, entraîner la garde), DO (exécuter les travaux), CHECK (inspecter les ouvrages, patrouiller) et ACT (réparer les brèches, adapter les tactiques).</p>
+                    <p><strong>Le Conseil du Roi (Direction et Leadership)</strong> : C’est l’autorité suprême. Elle définit la politique (la charte de défense), alloue les ressources (l’or pour les fortifications), et prend les décisions ultimes (accepter ou non le risque).</p>
+                    <p><strong>Le Plan de Défense (Déclaration d’Applicabilité)</strong> : C’est la liste exhaustive de toutes les mesures de défense que la citadelle a décidé d’utiliser, avec pour chacune la justification de son choix.</p>
+                    <p><strong>L’Arpenteur et le Chroniqueur (Audit)</strong> : C’est le maître d’œuvre qui vient vérifier périodiquement que les remparts sont bien aux normes, que la garde suit les procédures, et enregistre les non-conformités pour les corriger.</p>
+                </div>
+                <h4>Mapping Explicite</h4>
+                <ul>
+                    <li><span class="concept-key">Citadelle</span> → Organisation</li>
+                    <li><span class="concept-key">Donjon</span> → SMSI (système de management)</li>
+                    <li><span class="concept-key">Trésors</span> → Actifs informationnels (données, systèmes)</li>
+                    <li><span class="concept-key">Assaillants</span> → Menaces (externes, internes)</li>
+                    <li><span class="concept-key">Fossés, remparts, guetteurs</span> → Contrôles (dissuasifs, préventifs, détectifs, correctifs)</li>
+                    <li><span class="concept-key">Cycle PDCA</span> → Amélioration continue (Plan-Do-Check-Act)</li>
+                    <li><span class="concept-key">Conseil du Roi</span> → Direction (leadership, engagement)</li>
+                    <li><span class="concept-key">Plan de Défense</span> → Déclaration d’Applicabilité (DdA)</li>
+                    <li><span class="concept-key">Arpenteur / Chroniqueur</span> → Audit interne / Revue de direction</li>
+                </ul>
+            </section>
+
+            <!-- Section Modèle Mental -->
+            <section id="modele-mental" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Schéma Directeur</span>
+                    <h2>🧩 Modèle Mental Global du Système</h2>
+                </div>
+                <p>Un SMSI se comporte comme un <strong>écosystème auto-régulé</strong>. Il ne s’agit pas d’un logiciel, mais d’un système sociotechnique dont les composants sont interdépendants.</p>
+                <div class="mermaid-diagram">
+                    <div class="mermaid">
+graph TD
+    subgraph Planification
+        A[Contexte & Parties Prenantes] --> B[Politique de Sécurité];
+        B --> C[Appréciation des Risques];
+        C --> D[Traitement des Risques];
+        D --> E[Déclaration d'Applicabilité (DdA)];
+    end
+
+    subgraph Mise en Oeuvre
+        E --> F[Allocation des Ressources];
+        F --> G[Déploiement des Contrôles];
+        G --> H[Gestion des Compétences & Sensibilisation];
+        H --> I[Communication];
+    end
+
+    subgraph Évaluation
+        I --> J[Surveillance & Mesure];
+        J --> K[Audit Interne];
+        K --> L[Revue de Direction];
+    end
+
+    subgraph Amélioration
+        L -- Décisions --> M[Actions Correctives];
+        M --> N[Modification des Processus/Contrôles];
+        N --> B;
+        N --> D;
+        N --> F;
+    end
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style E fill:#ccf,stroke:#333,stroke-width:2px
+    style L fill:#cfc,stroke:#333,stroke-width:2px
+    style M fill:#fcc,stroke:#333,stroke-width:2px
+                    </div>
+                </div>
+                <p>Ce diagramme montre la boucle de régulation fondamentale : le contexte et les parties prenantes nourrissent la planification, qui se traduit en contrôles. L’évaluation (audit, revue) génère des actions correctives, qui bouclent vers la planification et la mise en œuvre, assurant l’amélioration continue.</p>
+            </section>
+
+            <!-- Section Architecture -->
+            <section id="architecture" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Fondamentaux</span>
+                    <h2>1️⃣ Architecture Conceptuelle Fondamentale</h2>
+                </div>
+                <p><span class="concept-key">Rôle métier/technique</span> : Le SMSI, tel que défini par l’ISO/CEI 27001, n’est pas un outil technique. C’est un <strong>cadre de gouvernance</strong> qui permet à une organisation de maîtriser sa sécurité de l’information de manière systématique, documentée et continue. Il transforme la sécurité, souvent perçue comme un coût technique réactif, en un <strong>avantage stratégique</strong> géré de manière proactive.</p>
+                <p><span class="concept-key">Positionnement</span> : Le SMSI est compatible avec la structure HLS (High Level Structure) des normes ISO de systèmes de management (Qualité, Continuité d’activité). Il s’articule avec le RGPD pour la protection des données personnelles et avec les modèles de référence comme ITIL ou Zero Trust, dont il fournit les exigences de gouvernance.</p>
+                <p><span class="concept-key">Frontières et interfaces</span> : Le périmètre du SMSI (clause 4.3) définit ce qui est inclus (un site, une filiale, un processus). Il interagit avec les parties prenantes (clients, fournisseurs, régulateurs) via les exigences de la clause 4.2 et les contrôles sur les relations avec les fournisseurs (A.5.19 à A.5.22).</p>
+                <p><span class="concept-key">Principes directeurs</span> : Gestion des risques, approche processus, amélioration continue, conformité, engagement de la direction.</p>
+            </section>
+
+            <!-- Section Mécanismes -->
+            <section id="mecanismes" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Fonctionnement Causal</span>
+                    <h2>2️⃣ Mécanismes Internes Détaillés</h2>
+                </div>
+
+                <h3 id="mecanisme-appreciation-risques">A. Mécanisme d’Appréciation des Risques (clauses 6.1.2 & 8.2)</h3>
+                <div class="mermaid-diagram">
+                    <div class="mermaid">
+stateDiagram-v2
+    [*] --> Etablissement_Criteres : 6.1.2.a
+    Etablissement_Criteres --> Identification_Risques : 6.1.2.c
+    Identification_Risques --> Analyse_Risques : 6.1.2.d
+    Analyse_Risques --> Evaluation_Risques : 6.1.2.e
+    Evaluation_Risques --> Traitement : Si Risque > Seuil Acceptation
+    Traitement --> [*]
+    Evaluation_Risques --> Acceptation : Si Risque <= Seuil Acceptation
+    Acceptation --> [*]
+                    </div>
+                </div>
+                <p><strong>Explication</strong> : Ce processus transforme le contexte de l’organisation en une liste de risques priorisés. Il commence par établir les critères (qu’est-ce qu’un risque acceptable ?). Ensuite, on identifie les risques (menace x vulnérabilité sur un actif), on analyse leur vraisemblance et leur impact, puis on évalue le niveau obtenu par rapport aux critères. Si le risque dépasse le seuil, il doit être traité ; sinon, il peut être accepté formellement.</p>
+
+                <h3 id="mecanisme-traitement-risques">B. Mécanisme de Traitement des Risques (clauses 6.1.3 & 8.3)</h3>
+                <div class="mermaid-diagram">
+                    <div class="mermaid">
+graph LR
+    A[Risques évalués] --> B{Choix de l'option};
+    B -->|Modification| C[Implémenter contrôles];
+    B -->|Maintien| D[Accepter formellement];
+    B -->|Transfert| E[Assurance / Sous-traitance];
+    B -->|Refus| F[Arrêter l'activité];
+    C --> G[Déclaration d'Applicabilité (DdA)];
+    D --> G;
+    E --> G;
+    F --> G;
+    G --> H[Plan de traitement];
+    H --> I[Approbation du risque résiduel];
+                    </div>
+                </div>
+                <p><strong>Explication</strong> : Pour chaque risque prioritaire, l’organisation choisit une option de traitement. L’option la plus courante est la modification (ajout de contrôles). Ces contrôles sont listés et justifiés dans la Déclaration d’Applicabilité. Un plan de traitement détaille les actions, responsabilités et délais. Enfin, le propriétaire du risque et la direction approuvent formellement le niveau de risque qui subsistera (risque résiduel).</p>
+            </section>
+
+            <!-- Section Protocoles -->
+            <section id="protocoles" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Éléments du Système</span>
+                    <h2>3️⃣ Protocoles, Normes et Outils (L’exhaustivité technique)</h2>
+                </div>
+                <h3>ISO/CEI 27001:2022 – La norme de référence</h3>
+                <ul>
+                    <li><span class="concept-key">Objectif</span> : Spécifier les exigences pour établir, mettre en œuvre, maintenir et améliorer continuellement un SMSI. Seule norme de la famille 27001 sur laquelle une organisation peut être certifiée.</li>
+                    <li><span class="concept-key">Structure HLS</span> : Clauses 4 (Contexte), 5 (Leadership), 6 (Planification), 7 (Support), 8 (Fonctionnement), 9 (Évaluation), 10 (Amélioration).</li>
+                    <li><span class="concept-key">Annexe A</span> : 93 contrôles répartis en 4 catégories (Organisationnel, Humain, Physique, Technologique). Ils servent de catalogue pour traiter les risques.</li>
+                </ul>
+                <h3>Normes et méthodologies associées</h3>
+                <ul>
+                    <li><span class="concept-key">ISO/CEI 27002:2022</span> : Code de bonnes pratiques pour la mise en œuvre des contrôles de l’Annexe A. (Non certifiable).</li>
+                    <li><span class="concept-key">ISO/CEI 27005</span> : Lignes directrices pour la gestion des risques de sécurité de l’information.</li>
+                    <li><span class="concept-key">Méthodologies</span> : EBIOS Risk Manager (ANSSI), MEHARI (CLUSIF), NIST SP 800-30. Chaque organisation choisit celle qui s’adapte à son contexte.</li>
+                </ul>
+                <h3>Documents obligatoires (informations documentées)</h3>
+                <ul>
+                    <li><span class="concept-key">Politique de sécurité de l’information (PSI)</span> : Document fondateur, approuvé par la direction (clause 5.2).</li>
+                    <li><span class="concept-key">Déclaration d’Applicabilité (DdA)</span> : Document central listant les contrôles de l’Annexe A, avec justification de leur applicabilité ou non (clause 6.1.3.d).</li>
+                    <li><span class="concept-key">Plan de traitement des risques (PTR)</span> : Plan d’action détaillé avec responsabilités et délais (clause 6.1.3.e).</li>
+                    <li><span class="concept-key">Preuves d’engagement</span> : Procès-verbaux de revue de direction, rapports d’audit interne, budget alloué.</li>
+                </ul>
+            </section>
+
+            <!-- Section Illusions -->
+            <section id="illusions" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Pièges à Éviter</span>
+                    <h2>4️⃣ Illusions Conceptuelles & Pièges Opérationnels</h2>
+                </div>
+                <div class="illusion-box">
+                    <h4>1. « La certification ISO 27001 garantit une sécurité absolue. »</h4>
+                    <p><strong>Pourquoi elle est séduisante</strong> : Le logo « Certifié ISO 27001 » est une marque de confiance.</p>
+                    <p><strong>Pourquoi elle est fausse</strong> : La certification atteste que l’organisation <em>gère</em> ses risques de manière structurée, pas qu’elle est imprenable. Un SMSI certifié peut subir une cyberattaque ; sa valeur est dans la résilience.</p>
+                    <p><strong>Modèle mental correct</strong> : La certification est un <strong>permis de conduire</strong>, pas une garantie contre l’accident.</p>
+                </div>
+                <div class="illusion-box">
+                    <h4>2. « Le SMSI, c’est un projet du RSSI. »</h4>
+                    <p><strong>Pourquoi elle est séduisante</strong> : Le RSSI est l’expert, on délègue naturellement la sécurité.</p>
+                    <p><strong>Pourquoi elle est fausse</strong> : L’ISO 27001 est catégorique : le leadership et l’engagement doivent venir de la <strong>direction</strong> (clause 5.1). Sans cela, le SMSI devient bureaucratique et inefficace.</p>
+                    <p><strong>Modèle mental correct</strong> : Le SMSI est un système de management de l’organisation, porté par la direction. Le RSSI est le pilote technique, la direction est le capitaine.</p>
+                </div>
+                <div class="illusion-box">
+                    <h4>3. « Une politique de sécurité trop stricte est plus sécurisante. »</h4>
+                    <p><strong>Pourquoi elle est séduisante</strong> : On imagine que plus la règle est restrictive, moins il y a de risques.</p>
+                    <p><strong>Pourquoi elle est fausse</strong> : Une politique trop stricte, déconnectée des réalités métiers, est contournée ou ignorée. L’ISO 27001 exige une politique <em>appropriée à la mission de l’organisation</em> (clause 5.2.a).</p>
+                    <p><strong>Modèle mental correct</strong> : La politique doit être un <strong>équilibre entre sécurité et fonctionnalité</strong>, co-construite avec les métiers.</p>
+                </div>
+                <div class="illusion-box">
+                    <h4>Piège opérationnel : Confondre « correction » et « action corrective »</h4>
+                    <p><strong>Exemple</strong> : Un compte utilisateur n’a pas été désactivé après un départ.</p>
+                    <p><strong>Correction</strong> : Désactiver le compte (traiter le symptôme).</p>
+                    <p><strong>Action corrective</strong> : Analyser pourquoi le processus a échoué (absence de notification RH, procédure mal définie) et corriger le processus pour éviter la récurrence (clause 10.2).</p>
+                </div>
+            </section>
+
+            <!-- Section Raisonnement -->
+            <section id="raisonnement" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Méthode Expert</span>
+                    <h2>5️⃣ Raisonnement de l’Expert Senior — Pensée systémique appliquée</h2>
+                </div>
+                <h3>Penser en chaînes causales</h3>
+                <p>Un expert ne voit pas un problème isolé, mais un maillon d’une chaîne. Exemple : une application métier lente. L’expert n’augmente pas simplement la RAM. Il analyse les logs, détecte un pic de requêtes, investigue le code, identifie une boucle non optimisée, puis anticipe les impacts (masquage d’une vulnérabilité), et décide de lancer un audit de code sécurisé et de revoir le cycle de développement.</p>
+                <h3>Diagnostiquer par hypothèses réfutables</h3>
+                <ol>
+                    <li><strong>Définir le périmètre</strong> : Incident de sécurité ou panne ?</li>
+                    <li><strong>Hypothèse 1</strong> : Ransomware → chercher les fichiers avec extensions modifiées, notes de rançon.</li>
+                    <li><strong>Hypothèse 2</strong> : DDoS → analyser le trafic réseau, CPU, logs firewall.</li>
+                    <li><strong>Hypothèse 3</strong> : Fuite de données interne → surveiller les transferts volumineux vers l’extérieur, accès anormaux.</li>
+                </ol>
+                <p>Cette méthode évite de perdre du temps et d’appliquer des solutions inadaptées.</p>
+                <h3>Lire les signaux faibles</h3>
+                <ul>
+                    <li>Pic de tentatives de connexion échouées → attaque par brute-force.</li>
+                    <li>Demande d’accès inhabituelle → possible conflit d’intérêt ou préparation malveillante.</li>
+                    <li>Fournisseur ne répondant pas aux sollicitations sécurité → négligence potentielle dans la chaîne d’approvisionnement.</li>
+                </ul>
+                <h3>Prendre des décisions sous contraintes</h3>
+                <ul>
+                    <li><strong>Analyse coût-bénéfice</strong> : Le coût du contrôle est-il supérieur à l’impact évité ?</li>
+                    <li><strong>Principe de proportionnalité</strong> : Protéger une donnée critique avec 3 facteurs d’authentification est proportionné ; le faire pour une donnée publique ne l’est pas.</li>
+                </ul>
+            </section>
+
+            <!-- Section Synthèse -->
+            <section id="synthese" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">À Retenir Absolument</span>
+                    <h2>6️⃣ Synthèse Mémorisable Long Terme</h2>
+                </div>
+                <h3>Lois invariantes du domaine</h3>
+                <div class="law-box">
+                    <p><strong>1. Loi du contexte</strong> : Un SMSI doit être adapté au contexte (taille, secteur, culture) de l’organisation. La clause 4.1 est le point de départ obligé.</p>
+                    <p><strong>2. Loi de l’engagement</strong> : Sans engagement de la direction, tout SMSI est voué à l’échec.</p>
+                    <p><strong>3. Loi de l’amélioration continue</strong> : La sécurité n’est jamais acquise. Un SMSI est un organisme vivant.</p>
+                    <p><strong>4. Loi du risque</strong> : Il n’y a pas de zéro risque. La sécurité consiste à gérer le risque à un niveau acceptable, approuvé par la direction.</p>
+                </div>
+                <h3>Équations mentales</h3>
+                <div class="equation-box">
+                    <p><strong>Risque</strong> = Impact × Vraisemblance</p>
+                    <p><strong>Efficacité du SMSI</strong> = Engagement Direction × (Qualité des Processus + Maîtrise des Risques) – Fossé Politique/Réalité</p>
+                    <p><strong>Contrôle Efficace</strong> = Politique Claire + Mise en Œuvre Technique + Surveillance + Action Corrective</p>
+                </div>
+                <h3>Checklist cognitive pour un changement majeur (ex : migration cloud)</h3>
+                <ul>
+                    <li><strong>Contexte</strong> : Ce changement est-il dans le périmètre du SMSI ?</li>
+                    <li><strong>Risques</strong> : Avons-nous analysé les nouveaux risques (menaces cloud, perte de maîtrise, A.5.23) ?</li>
+                    <li><strong>Traitement</strong> : Avons-nous sélectionné et justifié les contrôles (A.8.9, A.8.11) ?</li>
+                    <li><strong>Parties prenantes</strong> : Les clauses contractuelles avec le fournisseur cloud sont-elles alignées (A.5.20) ?</li>
+                    <li><strong>Compétences</strong> : L’équipe a-t-elle les compétences nécessaires (clause 7.2) ?</li>
+                    <li><strong>Communication</strong> : Avons-nous communiqué le changement (clause 7.4) ?</li>
+                </ul>
+                <div class="analogy-box">
+                    <h4>Retour à l’analogie centrale</h4>
+                    <p>La <strong>citadelle</strong> (organisation) a été confiée par le <strong>Conseil du Roi</strong> (direction) à un <strong>Grand Architecte</strong> (RSSI). L’Architecte a élaboré un <strong>plan de défense</strong> (DdA) basé sur les <strong>trésors</strong> (actifs) et les <strong>assaillants</strong> (menaces). Le <strong>Conseil</strong> se réunit régulièrement (revue de direction) pour examiner les rapports des <strong>guetteurs</strong> (surveillance) et de l’<strong>Arpenteur</strong> (audit). Si une brèche est découverte (non-conformité), on la colmate (correction), puis on révise les plans de la garde (action corrective). Ce cycle permanent est le <strong>cycle de vie de la citadelle</strong> (PDCA).</p>
+                </div>
+            </section>
+
+            <!-- Section Extension -->
+            <section id="extension" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Perspectives</span>
+                    <h2>7️⃣ Extension au-delà du Corpus (500%+)</h2>
+                </div>
+                <h3>Concepts adjacents : Continuité d’activité (ISO 22301)</h3>
+                <p>L’ISO 27001:2022 a renforcé ce lien avec les contrôles A.5.29 (Sécurité pendant une perturbation) et A.5.30 (Préparation des TIC pour la continuité d’activité). Passer d’une approche de protection à une approche de résilience est indispensable.</p>
+                <h3>Approfondissement théorique : Paradoxe de l’évaluation des risques</h3>
+                <p>L’ISO 27001 exige des résultats d’appréciation « cohérents, valides et comparables » (6.1.2.b). Pour s’en rapprocher : standardiser les grilles d’évaluation, former les évaluateurs, utiliser une méthodologie reconnue (EBIOS, MEHARI), et auditer les résultats.</p>
+                <h3>Perspective vendor‑neutral</h3>
+                <p>Le SMSI est indépendant des technologies. Que l’organisation utilise Cisco, Juniper, ou du logiciel libre, les <em>pourquoi</em> des contrôles (ex : A.8.20 Sécurité des réseaux) sont dictés par le SMSI ; le <em>comment</em> varie selon le fournisseur.</p>
+                <h3>Évolutions et tendances</h3>
+                <ul>
+                    <li><span class="concept-key">ISO 27001:2022</span> : intégration de la cybersécurité, du cloud (A.5.23), des menaces (A.5.7), du développement sécurisé (A.8.28).</li>
+                    <li><span class="concept-key">ISO 42001</span> : norme émergente pour le management de l’intelligence artificielle.</li>
+                </ul>
+                <h3>Liens vers d’autres disciplines</h3>
+                <ul>
+                    <li><strong>Programmation</strong> : Contrôle A.8.28 (Codage sécurisé) → DevSecOps, revues de code.</li>
+                    <li><strong>Droit</strong> : Clauses A.5.31 (Exigences légales) et A.5.34 (Protection de la vie privée) → collaboration étroite entre RSSI et juriste.</li>
+                    <li><strong>Économie</strong> : Le business case (clause 6.2) justifie les investissements de sécurité non comme des coûts, mais comme des investissements pour protéger la valeur.</li>
+                </ul>
+            </section>
+
+            <!-- Section Objectifs -->
+            <section id="objectifs" class="module-section">
+                <div class="section-header">
+                    <span class="section-tag">Finalité</span>
+                    <h2>🎯 Objectifs Cognitifs Finaux – Expert SMSI 500%+</h2>
+                </div>
+                <div class="cognitive-objectives">
+                    <p>À la fin de ce module, vous ne voyez plus un SMSI comme une simple collection de documents ou de contrôles techniques, mais comme un <strong>système de gouvernance vivant</strong>. Vous comprenez simultanément :</p>
+                    <ul>
+                        <li>Les exigences de la norme ISO 27001 et leur logique sous-jacente</li>
+                        <li>La mécanique de la gestion des risques et son articulation avec les contrôles</li>
+                        <li>Les rôles et responsabilités, du leadership à l’utilisateur final</li>
+                        <li>Les compromis fondamentaux (sécurité vs fonctionnalité, coût vs bénéfice)</li>
+                        <li>Les enjeux stratégiques et de conformité (RGPD, contractualisation)</li>
+                    </ul>
+                    <p>Vous pouvez expliquer à un comité de direction, à un auditeur, et à un technicien comment fonctionne un SMSI, avec une profondeur adaptée à chaque public.</p>
+                    <br>
+                    <h3>Vous devez pouvoir dire, sans hésitation :</h3>
+                    <ul>
+                        <li>« Je vois la gouvernance, les processus, les risques et les contrôles comme un système unique et cohérent. »</li>
+                        <li>« Je peux tracer mentalement le chemin d’un risque, de son identification jusqu’à son traitement et sa surveillance. »</li>
+                        <li>« Je comprends pourquoi un SMSI fonctionne ET pourquoi il échoue, à toutes les clauses. »</li>
+                        <li>« Je conçois un système de management en anticipant les non-conformités et l’amélioration continue. »</li>
+                        <li>« Mon niveau de compréhension dépasse 500% d’une formation ISO 27001 standard. »</li>
+                        <li>« Je ne suis plus un simple "conformiste", je suis un architecte de la sécurité de l’information. »</li>
+                        <li>« Quand une non-conformité est détectée, je sais comment remonter aux causes racines et bâtir des actions correctives systémiques. »</li>
+                    </ul>
+                    <br>
+                    <p><strong>Votre nouveau superpouvoir</strong> : Vous ne "gérez" plus des documents ou des contrôles. Vous orchestrez un système de management qui protège les actifs de l’organisation, assure sa résilience et prouve sa conformité. Vous êtes désormais parmi le 1% qui comprend vraiment comment gouverner la sécurité de l’information de manière stratégique.</p>
+                </div>
+            </section>
+        
+      <section class="panel"><footer class="page-footer">
+
+        <p>Module Académique SMSI — Fondations, Architecture et Maîtrise Opérationnelle</p>
+        <p>Reconstruction pour la maîtrise expert 500%+ — Conformité ISO/CEI 27001:2022</p>
+    
+      </footer></section>
+    </main>
+  </div>
+</div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const hamburger = document.getElementById('hamburger-btn');
+      const sidebar = document.getElementById('sidebar-shell');
+      const navLinks = document.querySelectorAll('.nav a');
+      const sections = document.querySelectorAll('.module-section');
+      if (hamburger) {
+        hamburger.addEventListener('click', function () {
+          sidebar.dataset.collapsed = sidebar.dataset.collapsed === 'true' ? 'false' : 'true';
+        });
+      }
+      function setActiveSection() {
+        let current = '';
+        sections.forEach(section => {
+          const top = section.offsetTop - 140;
+          const height = section.offsetHeight;
+          if (window.scrollY >= top && window.scrollY < top + height) current = section.getAttribute('id');
+        });
+        navLinks.forEach(link => {
+          link.classList.remove('active', 'active-section');
+          if (link.getAttribute('href') === '#' + current) link.classList.add('active', 'active-section');
+        });
+      }
+      setActiveSection();
+      window.addEventListener('scroll', setActiveSection);
+      if (window.mermaid) {
+        document.querySelectorAll('.mermaid').forEach(el => el.removeAttribute('data-processed'));
+        window.mermaid.run({ querySelector: '.mermaid' });
+      }
+      document.querySelectorAll('.mermaid-diagram').forEach(diagram => {
+        const target = diagram.querySelector('.mermaid');
+        if (!target || diagram.querySelector('.mermaid-toolbar')) return;
+        target.classList.add('mermaid-stage');
+        let scale = 1;
+        const toolbar = document.createElement('div');
+        toolbar.className = 'mermaid-toolbar';
+        toolbar.innerHTML = '<button type=\"button\" class=\"mermaid-btn\" data-action=\"out\">-</button><button type=\"button\" class=\"mermaid-btn\" data-action=\"reset\">100%</button><button type=\"button\" class=\"mermaid-btn\" data-action=\"in\">+</button>';
+        diagram.insertBefore(toolbar, target);
+        function renderScale(){ target.style.transform = 'scale(' + scale + ')'; }
+        toolbar.addEventListener('click', function (event) {
+          const button = event.target.closest('.mermaid-btn');
+          if (!button) return;
+          const action = button.getAttribute('data-action');
+          if (action === 'in') scale = Math.min(scale + 0.1, 2.5);
+          if (action === 'out') scale = Math.max(scale - 0.1, 0.6);
+          if (action === 'reset') scale = 1;
+          renderScale();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
